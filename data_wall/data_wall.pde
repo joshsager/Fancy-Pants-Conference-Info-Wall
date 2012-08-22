@@ -7,8 +7,19 @@ void setup() {
   //Set the size of the stage, and the background to black.
   background(0);
   size(500,500);
+  
+  // LOADS IN SECRET CREDENTIALS
+  String creds[] = loadStrings("data/supersecret.txt");
+    println("there are " + creds.length + " lines");
+    for (int i=0; i < creds.length; i++) {
+      println(creds[i]);
+    }
 
-// TWITTERS STUFF WILL GO HERE WHEN WE FITGURE IT OUT
+ConfigurationBuilder cb = new ConfigurationBuilder();
+cb.setOAuthConsumerKey(creds[0]);
+cb.setOAuthConsumerSecret(creds[1]);
+cb.setOAuthAccessToken(creds[2]);
+cb.setOAuthAccessTokenSecret(creds[3]);
 
 //Make the twitter object and prepare the query
   Twitter twitter = new TwitterFactory(cb.build()).getInstance();
