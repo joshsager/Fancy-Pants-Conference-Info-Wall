@@ -6,7 +6,7 @@ int y;
 void setup() {
   //Set the size of the stage, and the background to black.
   background(0);
-  size(500,500);
+  size(550,500);
   
   // LOADS IN SECRET CREDENTIALS
   String creds[] = loadStrings("data/supersecret.txt");
@@ -27,7 +27,7 @@ cb.setOAuthAccessTokenSecret(creds[3]);
   
  
   
-  Query query = new Query("@looppgh");
+  Query query = new Query("gop");
   query.setRpp(100);
   
   
