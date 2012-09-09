@@ -1,85 +1,78 @@
-PImage b;
-Tweet t;
-int x;
-int y;
+DataWallScreen scheduleScreen, twitterScreen, funFactScreen;
+int[] states = new int[6];
+
+int currentState;
 
 void setup() {
-  //Set the size of the stage, and the background to black.
+  frameRate(30);
+  size(1280, 800);
+  background(0, 0, 0, 255);
+  states[0] = 0; // start
+  states[1] = 1; // twitter
+  states[2] = 2; // schedule-in
+  states[3] = 3; // schedule-out
+  states[4] = 4; // fun fact-in
+  states[5] = 5; // fun fact-out
+  
+  
+  twitterScreen = new DataWallScreen(color(0, 255, 0), 0, 0); 
+  scheduleScreen = new DataWallScreen(color(255, 0, 0), (-screenWidth+25), 0);
+  funFactScreen  = new DataWallScreen(color(0, 0, 255), (screenWidth-25), 0);
+  
+  
+}
+
+void draw() {
   background(0);
-  size(550,500);
+  twitterScreen.drawScreen();
+  scheduleScreen.drawScreen();
+  funFactScreen.drawScreen();
   
-  // LOADS IN SECRET CREDENTIALS
-  String creds[] = loadStrings("data/supersecret.txt");
-    println("there are " + creds.length + " lines");
-    for (int i=0; i < creds.length; i++) {
-      println(creds[i]);
-    }
-
-ConfigurationBuilder cb = new ConfigurationBuilder();
-cb.setOAuthConsumerKey(creds[0]);
-cb.setOAuthConsumerSecret(creds[1]);
-cb.setOAuthAccessToken(creds[2]);
-cb.setOAuthAccessTokenSecret(creds[3]);
-
-//Make the twitter object and prepare the query
-  Twitter twitter = new TwitterFactory(cb.build()).getInstance();
-  
-  
- 
-  
-  Query query = new Query("gop");
-  query.setRpp(100);
-  
-  
-   //Try making the query request.
-  try {
-    QueryResult result = twitter.search(query);
-    ArrayList tweets = (ArrayList) result.getTweets();
- 
-    // Total Number of tweets
-    println(tweets.size());
- 
-    for (int i = 0; i < tweets.size(); i++) {
-      
-      t = (Tweet) tweets.get(i);
-      //println(t);
-      println(width);
-      b = loadImage(t.getProfileImageUrl(),"jpg","png");
-      
-      
-      if(x>width){
-        x=0;
-        y+=50;
-      }
-      
-      try{
-      image(b, x, y);
-      }catch(Error e){
-        println(e);
-      } 
-      x += 50;
-      
-      
-      
-      /*String user = t.getFromUser();
-      String msg = t.getText();
-      Date d = t.getCreatedAt();
-      println("Tweet by " + user + " at " + d + ": " + msg);
- 
-      //Break the tweet into words
-      String[] input = msg.split(" ");
-      for (int j = 0;  j < input.length; j++) {
-       //Put each word into the words ArrayList
-       words.add(input[j]);*/
-      }
-    //};
+  switch(currentState){
+    case 1:
+    //twitterScreen.x+=(screenWidth-twitterScreen.x)*.2;
+    scheduleScreen.x+=((-screenWidth+25)-scheduleScreen.x)*.2;
+    break;
+    
+    case 2: // schedule-in
+    scheduleScreen.x+=(0-scheduleScreen.x)*.2;
+    break;
+    
+    case 3: // schedule-out
+    scheduleScreen.x+=((-screenWidth+25)-scheduleScreen.x)*.2;
+    break;
+    
+    case 4: // fun fact-in
+    funFactScreen.x+=(0-funFactScreen.x)*.2;
+    break;
+    
+    case 5: // fun fact-out
+    funFactScreen.x+=((screenWidth-25)-funFactScreen.x)*.2;
+    break;
+    
   }
-  catch (TwitterException te) {
-    println("Couldn't connect: " + te);
-  };
   
 }
 
-void draw(){
- 
+void mouseClicked(){
+  if(mouseX<25){
+    if(currentState!=2){
+     currentState = 2;
+    }else{
+     currentState = 3;
+    }  
+  }
+  
+  if(mouseX>(screenWidth-25)){
+    if(currentState!=4){
+      currentState = 4;  
+    }else{
+      currentState = 5;
+    }
+  }
 }
+
+// 3 Modes are needed
+/* Agenda mode
+ Twitter mode
+ fun fact mode */
