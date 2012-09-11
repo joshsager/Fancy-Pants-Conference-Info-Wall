@@ -27,7 +27,7 @@ cb.setOAuthAccessTokenSecret(creds[3]);
   
  
   
-  Query query = new Query("steelers");
+  Query query = new Query("joshsager");
   query.setRpp(100);
   
   
