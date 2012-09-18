@@ -17,12 +17,10 @@ void setup() {
   states[5] = 5; // fun fact-out
   
   // Create each Screen  
-  twitterScreen = new TwitterScreen(color(0, 255, 0), 0, 0); 
+  twitterScreen = new TwitterScreen(color(0, 0, 0), 0, 0); 
   scheduleScreen = new DataWallScreen(color(255, 0, 0), (-screenWidth+25), 0);
   funFactScreen  = new DataWallScreen(color(0, 0, 255), (screenWidth-25), 0);
-  twitterScreen.drawScreen();
-  scheduleScreen.drawScreen();
-  funFactScreen.drawScreen();
+
 
   
 
@@ -30,8 +28,10 @@ void setup() {
 
 void draw() {
   //background(0);
-  twitterScreen.draw();
-
+  //twitterScreen.draw();
+  twitterScreen.drawScreen();
+  scheduleScreen.drawScreen();
+  funFactScreen.drawScreen();
 
   
   switch(currentState){

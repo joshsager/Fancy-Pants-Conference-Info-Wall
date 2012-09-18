@@ -13,8 +13,10 @@ class DataWallScreen{
   }
 
   void drawScreen(){
+   if(c!=0){ 
    fill(c);
    rect(x,y,screenWidth,screenHeight); 
+   }
   }
   
   void draw(){

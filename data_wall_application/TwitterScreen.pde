@@ -1,7 +1,7 @@
 class TwitterScreen extends DataWallScreen{
  TwitterHook twitter;
  int counter;
- int numberOfTweets = 100;
+ int numberOfTweets = 10;
  int holdTime = 100;
  int rand;
  PImage avatarImage;
@@ -12,7 +12,7 @@ class TwitterScreen extends DataWallScreen{
    TwitterScreen(color cl, int xp, int yp){
 
     super(cl,xp,yp);
-    twitter = new TwitterHook("refreshpitt",numberOfTweets);
+    twitter = new TwitterHook("looppgh",numberOfTweets);
     smooth();
     fill(c);
     rect(x,y,screenWidth,screenHeight); 
@@ -33,16 +33,18 @@ class TwitterScreen extends DataWallScreen{
 
      
      if(counter%holdTime==0){
-        background(counter);
+        //background(counter);
+        c= color(random(255),random(255),random(255));
         getRandomTweet();
         //drawAvatars();
-        outputTweet();
-         
       }
-        
+       outputTweet();
+       drawAvatars();
   }
   
     void outputTweet(){
+      fill(c);
+      rect(x,y,screenWidth,screenHeight); 
       fill(255,255,255);
       PFont myFont;
       myFont = createFont("SansSerif",40);
@@ -53,34 +55,24 @@ class TwitterScreen extends DataWallScreen{
     void getRandomTweet(){
         rand = floor(random(numberOfTweets));
         twitter.t = (Tweet) twitter.tweets.get(rand);
-        println(rand +"    "+twitter.t.getText()); 
+        //println(rand +"    "+twitter.t.getText()); 
     }
     void drawAvatars(){
       //Tweet t;
       //t = twitter.t
-      imgx=100;
-      imgy=600;
-     for (int i = 0; i < twitter.tweets.size(); i++) {
-      twitter.t = (Tweet) twitter.tweets.get(i);
+      imgx=125;
+      imgy=210;
+      twitter.t = (Tweet) twitter.tweets.get(rand);
       //println(t);
-      //println(width);
+      //println(twitter.t);
       avatarImage = loadImage(twitter.t.getProfileImageUrl(),"jpg","png");
-      
-      if(imgx>width){
-        imgx=100;
-        imgy+=50;
-      }
-      
       try{
-      image(avatarImage, imgx, imgy);
+        image(avatarImage, imgx, imgy,100,100);
       }catch(Error e){
         println(e);
-      } 
-      imgx += 50;
       } 
     }
    void draw(){
      drawScreen();
     }
- 
 }
