@@ -1,3 +1,5 @@
+import twitter4j.Query;
+
 class TwitterHook{
   Tweet t;
   ArrayList tweets;
@@ -19,7 +21,7 @@ class TwitterHook{
     //Make the twitter object and prepare the query
     Twitter twitter = new TwitterFactory(cb.build()).getInstance();
     // SEARCH BY
-    Query query = new Query(searchBy);
+    twitter4j.Query query = new Query(searchBy);
     query.setRpp(numberOfResults);
   
      //Try making the query request.
