@@ -1,8 +1,8 @@
 class TwitterScreen extends DataWallScreen{
  TwitterHook twitter;
  int counter;
- int numberOfTweets = 10;
- int holdTime = 100;
+ int numberOfTweets = 100;
+ int holdTime = 200;
  int rand;
  PImage avatarImage;
  String message;
@@ -34,7 +34,10 @@ class TwitterScreen extends DataWallScreen{
      
      if(counter%holdTime==0){
         //background(counter);
-        c= color(random(255),random(255),random(255));
+       // c= color(random(255),random(255),random(255));
+       c = 0;
+              twitter = new TwitterHook("webdesignday",numberOfTweets);
+
         getRandomTweet();
         //drawAvatars();
       }
@@ -43,14 +46,14 @@ class TwitterScreen extends DataWallScreen{
   }
   
     void outputTweet(){
-      fill(c);
+      fill(139,188,173,255);
       rect(x,y,screenWidth,screenHeight); 
       fill(255,255,255);
       PFont myFont;
       myFont = createFont("SansSerif",40);
       textFont(myFont,40);
       message = twitter.t.getText();
-      text(message, 240, 200, 800, 800);  // Text wraps within text box 
+      text(message, 300, 200, 800, 800);  // Text wraps within text box 
     }
     void getRandomTweet(){
         rand = floor(random(numberOfTweets));
@@ -60,14 +63,14 @@ class TwitterScreen extends DataWallScreen{
     void drawAvatars(){
       //Tweet t;
       //t = twitter.t
-      imgx=125;
+      imgx=200;
       imgy=210;
       twitter.t = (Tweet) twitter.tweets.get(rand);
       //println(t);
       //println(twitter.t);
       avatarImage = loadImage(twitter.t.getProfileImageUrl(),"jpg","png");
       try{
-        image(avatarImage, imgx, imgy,100,100);
+        image(avatarImage, imgx, imgy,75,75);
       }catch(Error e){
         println(e);
       } 

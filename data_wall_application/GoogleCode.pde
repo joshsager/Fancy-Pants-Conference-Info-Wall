@@ -9,9 +9,10 @@
       int n = sm.currentListEntries.size();
       int[] returnArray = new int[n];
       for (int i = 0; i < n; i++) {
-         returnArray[i] = int(sm.getCellValue("Number", i));
+         returnArray[i] = int(sm.getCellValue("StartTime", i));
       };
       println("Got " + n + " numbers.");
+      totalEntries = n;
       return(returnArray);
   };
   
