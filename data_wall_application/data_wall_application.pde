@@ -12,7 +12,7 @@ int totalEntries;
 int[] states = new int[6];
 
 int counter=0;
-int mod=300;
+int mod=400;
 
 int currentState;
 
@@ -133,7 +133,7 @@ if(currentState==1){
    currentState=2; 
 }else{
     counter =0;
-  mod=300; 
+  mod=400; 
     twitterScreen = new TwitterScreen(color(0, 0, 0), 0, 0); 
    currentState = 1; 
 }
