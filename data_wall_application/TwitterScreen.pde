@@ -12,7 +12,7 @@ class TwitterScreen extends DataWallScreen{
    TwitterScreen(color cl, int xp, int yp){
 
     super(cl,xp,yp);
-    twitter = new TwitterHook("looppgh",numberOfTweets);
+    twitter = new TwitterHook("webdesignday",numberOfTweets);
     smooth();
     fill(c);
     rect(x,y,screenWidth,screenHeight); 
